@@ -1,0 +1,5 @@
+openmediavault-cputemp (6.0) stable; urgency=low
+
+  * Initial release
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 10 Jan 2022 08:17:23 -0600
