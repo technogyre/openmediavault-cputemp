@@ -25,6 +25,7 @@ class OMVRpcServiceCpuTemp extends \OMV\Rpc\ServiceAbstract
     public function initialize()
     {
         $this->registerMethod("get");
+        $this->registerMethod("getSensors");
     }
 
     public function get($params, $context)
@@ -36,5 +37,19 @@ class OMVRpcServiceCpuTemp extends \OMV\Rpc\ServiceAbstract
         return [
             "cputemp" => intval($output[0]) / 1000
         ];
+    }
+
+    public function getSensors($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $output = [];
+        if (file_exists("/usr/bin/sensors")) {
+            $cmd = new \OMV\System\Process("sensors");
+            $cmd->execute($output, $exitStatus);
+        } else {
+            $output[] = "lm-sensors package is not installed and/or configured.";
+        }
+        return (implode("\n", $output));
     }
 }
