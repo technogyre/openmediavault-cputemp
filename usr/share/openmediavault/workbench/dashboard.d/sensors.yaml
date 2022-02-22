@@ -1,0 +1,13 @@
+version: "1.0"
+type: dashboard-widget
+data:
+  id: 99c5252a-9325-11ec-b199-9f2b33da191c
+  permissions:
+    role:
+      - admin
+  title: _("Sensors")
+  type: text
+  text:
+    request:
+      service: CpuTemp
+      method: getSensors

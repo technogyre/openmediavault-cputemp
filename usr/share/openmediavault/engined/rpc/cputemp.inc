@@ -44,12 +44,21 @@ class OMVRpcServiceCpuTemp extends \OMV\Rpc\ServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $output = [];
+        $temps = [];
         if (file_exists("/usr/bin/sensors")) {
-            $cmd = new \OMV\System\Process("sensors");
+            $cmd = new \OMV\System\Process("sensors","| cut -d'(' -f1");
             $cmd->execute($output, $exitStatus);
+
+            foreach (array_filter($output) as $line) {
+                if (strpos($line, ':') > 0) {
+                    $temps[] = trim($line);
+                } else {
+                    $temps[] = '<br/><b>'.trim($line).'</b><br/>';
+                }
+            }
         } else {
-            $output[] = "lm-sensors package is not installed and/or configured.";
+            $temps[] = "lm-sensors package is not installed and/or configured.";
         }
-        return (implode("\n", $output));
+        return (implode('<br/>', $temps));
     }
 }
