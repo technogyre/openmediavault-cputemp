@@ -1,3 +1,9 @@
+openmediavault-cputemp (6.1.3) stable; urgency=low
+
+  * Remove experimental collectd plugin
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 24 Jan 2023 12:43:47 -0600
+
 openmediavault-cputemp (6.1.2) stable; urgency=low
 
   * Add environment variables for cpu temp command
