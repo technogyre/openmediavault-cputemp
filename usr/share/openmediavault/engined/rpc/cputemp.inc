@@ -34,7 +34,7 @@ class OMVRpcServiceCpuTemp extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // get cpu temp command and divisor number
         $cpuTemp = \OMV\Environment::get("OMV_CPU_TEMP_COMMAND",
-          "cat /sys/devices/virtual/thermal/thermal_zone0/temp");
+          "grep -l x86_pkg_temp /sys/devices/virtual/thermal/thermal_zone*/type | sed 's/type/temp/' | xargs cat");
         $cpuDivisor = \OMV\Environment::get("OMV_CPU_TEMP_DIVISOR", "1000");
         if ($cpuDivisor == 0) {
             $cpuDivisor = 1;
